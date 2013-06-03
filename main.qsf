@@ -88,3 +88,4 @@ set_location_assignment PIN_74 -to col[15]
 set_location_assignment PIN_12 -to clock
 set_global_assignment -name VERILOG_FILE src/display.v
 set_global_assignment -name VERILOG_FILE src/main.v
+set_location_assignment PIN_14 -to cycle_marker
