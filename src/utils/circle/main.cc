@@ -1,5 +1,5 @@
 // File: main.cc
-// Date: Tue Jun 04 13:05:49 2013 +0800
+// Date: Wed Jun 05 00:11:58 2013 +0800
 // Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 #include "planedrawer.hh"
 #include "opencv.hh"
@@ -88,8 +88,6 @@ void test_line_circle() {
 	d.finish();
 	delete r;
 }
-
-
 
 int main(int argc, char* argv[]) {
 	test_line_circle();
