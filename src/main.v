@@ -1,6 +1,6 @@
 /*
  * $File: main.v
- * $Date: Tue Jun 04 00:52:42 2013 +0800
+ * $Date: Thu Jun 06 10:42:59 2013 +0800
  * $Author: jiakai <jia.kai66@gmail.com>
  */
 
@@ -21,7 +21,7 @@ module main(
 			col <= col0;
 		end
 		else begin
-			row <= 0;
+			row <= 16'hFFFF;
 			col <= 0;
 		end
 	end
