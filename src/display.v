@@ -1,6 +1,6 @@
 /*
  * $File: display.v
- * $Date: Sat Jun 01 09:18:27 2013 +0800
+ * $Date: Tue Jun 04 01:55:08 2013 +0800
  * $Author: jiakai <jia.kai66@gmail.com>
  */
 
@@ -19,6 +19,7 @@ module disp_matrix(
 	wire [0:15] scan_mask, row_scan_rst, col_scan_rst;
 
 	left_shift_register#(.WIDTH(16)) shift_scan_mask(is_row_scan, scan_mask);
+
 
 	always @(posedge clock) begin
 		if (is_row_scan) begin
