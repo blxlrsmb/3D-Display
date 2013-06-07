@@ -1,13 +1,14 @@
 /*
  * $File: display.v
- * $Date: Tue Jun 04 01:55:08 2013 +0800
+ * $Date: Fri Jun 07 15:46:08 2013 +0800
  * $Author: jiakai <jia.kai66@gmail.com>
  */
 
 
 /*
  * 16x16 led matrix display driver
- * input: mat: matrix to be displayed, row-major order, 1 means light
+ * input: mat: matrix to be displayed, row-major order, 
+ *		lower-left cornor is (0, 0)
  */
 
 module disp_matrix(
