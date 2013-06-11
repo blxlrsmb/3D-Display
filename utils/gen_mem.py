@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # $File: gen_mem.py
-# $Date: Tue Jun 11 15:14:09 2013 +0800
+# $Date: Tue Jun 11 19:15:57 2013 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 import sys
@@ -39,7 +39,7 @@ class Frame(object):
         """:return: (memdata, starting frame number of higher part)"""
         frames = deepcopy(frames)
         cls._regularize(frames)
-        data = [-1] * 1024
+        data = [0] * 1024
         for i in range(len(frames)):
             data[i] = (frames[i].addr >> 1) & 0xFF
 
