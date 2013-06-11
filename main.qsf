@@ -89,10 +89,11 @@ set_location_assignment PIN_12 -to clock
 set_location_assignment PIN_14 -to clock_cycle
 set_global_assignment -name SMART_RECOMPILE ON
 
+set_global_assignment -name VERILOG_FILE src/sigproc.v
+set_global_assignment -name VERILOG_FILE src/arith.v
 set_global_assignment -name MIF_FILE gen/mem.mif
 set_global_assignment -name VERILOG_FILE src/frame_reader.v
 set_global_assignment -name VERILOG_FILE src/anim.v
-set_global_assignment -name VERILOG_FILE src/adder.v
 set_global_assignment -name VERILOG_FILE src/display.v
 set_global_assignment -name VERILOG_FILE src/main.v
 set_global_assignment -name QIP_FILE gen/spi/spi.qip

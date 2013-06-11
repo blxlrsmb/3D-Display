@@ -1,12 +1,13 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # $File: gen_mem.py
-# $Date: Tue Jun 11 19:15:57 2013 +0800
+# $Date: Wed Jun 12 00:04:08 2013 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 import sys
 import os
 import os.path
+import json
 from copy import deepcopy
 
 class Frame(object):
@@ -84,14 +85,18 @@ def gen(frames, fout):
 
 
 if __name__ == '__main__':
-    frames = map(Frame, [(0, 1), (1,), (1, 5), (2,), (3, 1, 2), tuple(),
-        (0, 4), (2, 7)])
-
     os.chdir(os.path.dirname(__file__))
+    frames = list()
+    with open('frame.txt', 'r') as f:
+        for l in f.readlines():
+            frames.append(Frame(list(json.loads(l))))
+
     with open('../gen/mem.mif', 'w') as f:
         start = gen(frames, f)
     
     with open('../src/frame_reader_fh.inc.v', 'w') as f:
-        f.write("`define FRAME_HIGHERPART 8'd{}".format(start))
+        print >> f, "`define FRAME_HIGHERPART 8'd{}".format(start)
+        print >> f, "`define FB_SIZE 8'd{}".format(len(frames))
+        print >> f, "`define FB_SIZE_M1 8'd{}".format(len(frames) - 1)
 
 

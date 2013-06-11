@@ -1,6 +1,6 @@
 /*
 * $File: anim.v
-* $Date: Tue Jun 11 11:40:51 2013 +0800
+* $Date: Wed Jun 12 00:08:07 2013 +0800
 * $Author: jiakai <jia.kai66@gmail.com>
 */
 
@@ -11,13 +11,11 @@
 */
 module animation_renderer
 	(input clock, clock_cycle,
-	 clock_fb, // signal to switch to next frame bucket
+	 clock_next_fb, // signal to switch to next frame bucket (unimplemented)
 	 output reg unsigned [7:0] frame_num);
 
 	`define COUNTER_WIDTH	26
-	`define FB_SIZE	8'd9
-	`define FB_SIZE_M1	8'd8
-	`define FB_SIZE_INV	26'd14913081
+	`include "frame_reader_fh.inc.v"
 
 	wire [7:0] frame_num_next;
 	plus1 #(.WIDTH(8)) adder_frame_num(frame_num, frame_num_next);
@@ -36,8 +34,8 @@ module animation_renderer
 	plus1 #(.WIDTH(`COUNTER_WIDTH)) adder_fb_clk_cnt(fb_clk_cnt, fb_clk_cnt_next);
 	plus1 #(.WIDTH(`COUNTER_WIDTH)) adder_cur_frame_clk_cnt(
 		cur_frame_clk_cnt, cur_frame_clk_cnt_next);
-
-	assign clk_per_frame = clk_per_fb * 2; //`FB_SIZE_INV;
+	small_divider #(.WIDTH(`COUNTER_WIDTH)) div_clk_per_frame(clock,
+		clk_per_fb, `FB_SIZE, clk_per_frame);
 
 	always@(posedge clock)
 		if (clock_cycle_flip) begin
@@ -58,6 +56,7 @@ module animation_renderer
 		else cur_frame_clk_cnt <= cur_frame_clk_cnt_next;
 
 
+	initial
+		frame_num <= 0;
 endmodule
-
 
