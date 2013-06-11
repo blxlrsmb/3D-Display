@@ -1,30 +1,24 @@
 /*
  * $File: main.v
- * $Date: Thu Jun 06 10:42:59 2013 +0800
+ * $Date: Tue Jun 11 14:13:08 2013 +0800
  * $Author: jiakai <jia.kai66@gmail.com>
  */
 
 module main(
-	output reg [0:15] row, col,
-	input clock, cycle_marker);
+	output [0:15] row, col,
+	input clock, clock_cycle);
 
-	wire [0:255] data = 255'h0FF03FFC781E700EE007C003C003C003C003C003C003E007700E781E3FFC0FF0;
+	wire [0:255] data;
+	wire cc;
+	reg cc_prev;
+	reg unsigned [2:0] addr;
 
-	wire [0:15] row0, col0;
-	reg enable;
+	assign cc = ~cc_prev & clock_cycle;
+	always @(posedge clock_cycle)
+		cc_prev <= cc;
 
-	disp_matrix disp_matrix(data, clock, row0, col0);
+	disp_matrix disp_matrix_comp(data, clock, row, col);
 
-	always @(posedge clock) begin
-		if (cycle_marker) begin
-			row <= row0;
-			col <= col0;
-		end
-		else begin
-			row <= 16'hFFFF;
-			col <= 0;
-		end
-	end
-
+	frame_reader frame_reader_comp({5'b0, addr}, clock, data);
 endmodule
 
