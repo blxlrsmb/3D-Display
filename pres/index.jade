@@ -14,29 +14,77 @@ html(lang="en")
           h2 菠萝香辣肉松面包
           h2 (BLXL Rousong Bread)
           h3 --3D显示数字电路板
+          br
           p 计14 贾开 吴育昕
 
         section
           p 通过旋转彩灯电路板,在不同的角度点亮特定彩灯,实现3D效果
-          img(src="1.jpg")
+          img(src="img/concept.jpg", width="700", height="700")
           h5 概念图
 
         section
-          p 自主设计并焊接电路板
-          img(src="board.jpg")
+          section
+            h3 使用Altium软件设计电路板
+            div
+              img(src="img/design.jpg", width="500", height="600")
+              img(src="img/board.jpg", width="500", height="400")
 
         section
-          p 彩灯显示
-          p 电机控制旋转
-          p 传感器检测速度
-          p 软件生成数据
-          p UFM数据存储
-
+          section
+            h3 焊接电路板
+            p 板上装有CPLD(EPM570),灯阵(16x16),传感器,电池等
+            div
+              img(src="img/station.jpg", width="500", height="600")
+              img(src="img/desk.jpg", width="500", height="600")
 
         section
-          h3 效果图
-          h2 p
+          section
+            p 初次点亮
+            img(src="img/light.jpg")
+          section
+            p 灯阵工作正常
+            img(src="img/dong.jpg", width="800")
+          section
+            p 旋转
+            img(src="img/ball.jpg")
 
+        section
+          h3 传感器检测速度
+          br
+          ol
+            li.fragment 利用最近两次信号的间隔计算速度,配合时钟计算当前位置
+            br
+            li.fragment 实现一个更节省逻辑单元的简单除法器
+            br
+            li.fragment 可通过移动手持发射器改变图形位置,控制其旋转
+
+        section
+          h3 软件生成点阵数据
+          br
+          ol
+            li.fragment 枚举每一帧的每个像素,
+            br
+            li.fragment 计算像素在这一帧内的空间轨迹(要考虑旋转时的偏心距)
+            br
+            li.fragment 若轨迹与目标图形的距离小于某一阈值,则应点亮
+            br
+            li.fragment 将亮点的位置表示为0-255的整数输出
+
+        section
+          h3 UFM数据存储
+          br
+          p 使用了120帧数据
+          br
+          p 只将每个矩阵中的亮点存入UFM中
+
+        section
+          h3 演示
+
+        section
+          h2 谢谢!
+          div.fragment
+            h3 跪求报销!
+            img(width="500", height="500", src="img/bzmh.png")
 
 
 
@@ -51,6 +99,7 @@ html(lang="en")
         center: true,
         width: 1024,
         height: 960,
+        margin: 0.1,
 
         theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
         transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
