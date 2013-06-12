@@ -13,7 +13,7 @@ html(lang="en")
         section
           h2 菠萝香辣肉松面包
           h2 (BLXL Rousong Bread)
-          h3 --3D显示数字电路板
+          h3 --3D显示设备
           br
           p 计14 贾开 吴育昕
 
@@ -28,7 +28,7 @@ html(lang="en")
 
         section
           section
-            h3 使用Altium软件设计电路板
+            h3 使用AltiumDesigner软件设计电路板
             div
               img(src="img/design.jpg", width="500", height="600")
               img(src="img/board.jpg", width="500", height="400")
@@ -75,14 +75,17 @@ html(lang="en")
             li.fragment 将亮点的位置表示为0-255的整数输出
 
         section
-          h3 UFM数据存储
+          h3 UFM数据存储(1KiB)
           br
           p 使用了120帧数据
           br
           p 只将每个矩阵中的亮点存入UFM中
+          br
+          p 每帧存储8bit地址，并将最高位为1的帧编号直接写入CFM
 
         section
           h3 演示
+          video(data-autoplay, src="img/blxlrsmb.mp4", width="700")
 
         section
           h2 谢谢!
