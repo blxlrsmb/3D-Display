@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 # $File: camera.py
-# $Date: Wed Jun 12 10:21:32 2013 +0800
+# $Date: Wed Jun 12 14:43:12 2013 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 from .vector import Vector
 from math import sin, cos
 
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from OpenGL.GLUT import *
+try:
+    from OpenGL.GL import *
+    from OpenGL.GLU import *
+    from OpenGL.GLUT import *
+except ImportError:
+    pass
 
 class Camera(object):
     center = None

@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 # $File: __init__.py
-# $Date: Wed Jun 12 13:40:10 2013 +0800
+# $Date: Wed Jun 12 14:55:19 2013 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 from .camera import Camera
 from .vector import Vector
 
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from OpenGL.GLUT import *
+try:
+    from OpenGL.GL import *
+    from OpenGL.GLU import *
+    from OpenGL.GLUT import *
+except ImportError:
+    print 'Warning: opengl unavailable'
+    GLUT_UP = -1
 
 import sys
 import math
@@ -240,9 +244,10 @@ class RotatedPlane(object):
     center = None
 
     def __init__(self, agl):
-        self.axis_x = Vector(cos(agl - PI / 2), sin(agl - PI / 2), 0) * 2.5
+        self.axis_x = Vector(cos(agl + PI / 2), sin(agl + PI / 2), 0) * 2.5
         self.axis_y = Vector(0, 0, 2.5)
         self.center = Vector(4 * cos(agl), 4 * sin(agl), 0)
 
     def get_coord(self, x, y):
         return self.center + self.axis_x * (x - 7.5) + self.axis_y * (y - 7.5)
+
