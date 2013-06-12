@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # $File: gen_mem.py
-# $Date: Wed Jun 12 00:04:08 2013 +0800
+# $Date: Wed Jun 12 09:34:10 2013 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 import sys
@@ -85,12 +85,14 @@ def gen(frames, fout):
 
 
 if __name__ == '__main__':
-    os.chdir(os.path.dirname(__file__))
+    if len(sys.argv) != 2:
+        sys.exit('usage: {} <data file>'.format(sys.argv[0]))
     frames = list()
-    with open('frame.txt', 'r') as f:
+    with open(sys.argv[1]) as f:
         for l in f.readlines():
             frames.append(Frame(list(json.loads(l))))
 
+    os.chdir(os.path.dirname(__file__))
     with open('../gen/mem.mif', 'w') as f:
         start = gen(frames, f)
     
@@ -98,5 +100,6 @@ if __name__ == '__main__':
         print >> f, "`define FRAME_HIGHERPART 8'd{}".format(start)
         print >> f, "`define FB_SIZE 8'd{}".format(len(frames))
         print >> f, "`define FB_SIZE_M1 8'd{}".format(len(frames) - 1)
+    print '{} frames'.format(len(frames))
 
 
