@@ -1,15 +1,24 @@
 /*
  * $File: arith.v
- * $Date: Tue Jun 11 22:06:00 2013 +0800
+ * $Date: Wed Jun 12 16:02:19 2013 +0800
  * $Author: jiakai <jia.kai66@gmail.com>
  */
 
 module plus1
     #(parameter WIDTH)
-    (input [WIDTH-1:0] i,
-    output [WIDTH-1:0] o);
+    (input [WIDTH-1:0] a,
+     output [WIDTH-1:0] b);
 
-    assign o = i + 1'b1;
+	wire carry[WIDTH-1:0];
+	assign carry[0] = 1;
+	genvar i;
+	generate
+		for (i = 0; i + 1 < WIDTH; i = i + 1) begin: assign_cary
+			assign b[i] = a[i] ^ carry[i];
+			assign carry[i + 1] = a[i] & carry[i];
+		end
+	endgenerate
+	assign b[WIDTH - 1] = a[WIDTH - 1] ^ carry[WIDTH - 1];
 endmodule
 
 /*

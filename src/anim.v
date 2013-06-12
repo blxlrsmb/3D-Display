@@ -1,6 +1,6 @@
 /*
 * $File: anim.v
-* $Date: Wed Jun 12 00:08:07 2013 +0800
+* $Date: Wed Jun 12 16:31:50 2013 +0800
 * $Author: jiakai <jia.kai66@gmail.com>
 */
 
@@ -35,7 +35,7 @@ module animation_renderer
 	plus1 #(.WIDTH(`COUNTER_WIDTH)) adder_cur_frame_clk_cnt(
 		cur_frame_clk_cnt, cur_frame_clk_cnt_next);
 	small_divider #(.WIDTH(`COUNTER_WIDTH)) div_clk_per_frame(clock,
-		clk_per_fb, `FB_SIZE, clk_per_frame);
+		clk_per_fb, {18'b0, `FB_SIZE}, clk_per_frame);
 
 	always@(posedge clock)
 		if (clock_cycle_flip) begin
@@ -48,7 +48,7 @@ module animation_renderer
 	always@(posedge clock)
 		if (cur_frame_clk_cnt >= clk_per_frame) begin
 			cur_frame_clk_cnt <= 0;
-			if (frame_num == `FB_SIZE_M1)
+			if (frame_num >= `FB_SIZE_M1)
 				frame_num <= 0;
 			else
 				frame_num <= frame_num_next;
@@ -56,7 +56,9 @@ module animation_renderer
 		else cur_frame_clk_cnt <= cur_frame_clk_cnt_next;
 
 
-	initial
-		frame_num <= 0;
+	initial begin
+		frame_num = 0;
+		clk_per_fb = `FB_SIZE * 10000;
+	end
 endmodule
 

@@ -1,6 +1,6 @@
 /*
  * $File: frame_reader.v
- * $Date: Wed Jun 12 16:42:23 2013 +0800
+ * $Date: Wed Jun 12 16:36:32 2013 +0800
  * $Author: jiakai <jia.kai66@gmail.com>
  */
 
@@ -49,7 +49,8 @@ module frame_reader
 	always@(posedge clock) begin
 		case(state)
 			`STATE_FIND_CONTENT_START: begin
-				point_enable <= 0;
+				point_enable <= 1; // XXX
+				point_coord <= 8'd1; 
 				if (!ufm_enable) begin
 					ufm_enable <= 1;
 					ufm_addr <= frame_num[7:1];
@@ -71,7 +72,8 @@ module frame_reader
 			end	// STATE_FIND_CONTENT_START
 
 			`STATE_FIND_CONTENT_END: begin
-				point_enable <= 0;
+				point_enable <= 1; // XXX
+				point_coord <= 8'd2; 
 				if (!ufm_enable) begin
 					ufm_enable <= 1;
 					ufm_addr <= frame_num_next[7:1];
@@ -93,7 +95,8 @@ module frame_reader
 
 			`STATE_READ_CONTENT: begin
 				if (!ufm_enable) begin
-					point_enable <= 0;
+					point_enable <= 1; // XXX
+					point_coord <= 8'd3; 
 					if (content_start[7:0] == content_end[7:0]) begin
 						state <= `STATE_FIND_CONTENT_START;
 					end
@@ -109,6 +112,7 @@ module frame_reader
 				end
 				else if (ufm_ready) begin
 					if (content_cur == content_end[7:0]) begin
+						point_coord <= 8'd4;	// XXX
 						ufm_enable <= 0;
 						if (frame_num == saved_frame_num)
 							state <= `STATE_READ_CONTENT;
@@ -131,9 +135,10 @@ module frame_reader
 			end // STATE_READ_CONTENT
 
 			default: begin
-				point_enable <= 0;
 				state <= `STATE_FIND_CONTENT_START;
 				ufm_enable <= 0;
+				point_coord <= 8'd5;	// XXX
+				point_enable <= 1;
 			end
 		endcase
 	end

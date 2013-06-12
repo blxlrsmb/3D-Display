@@ -1,6 +1,6 @@
 /*
  * $File: main.v
- * $Date: Tue Jun 11 23:00:18 2013 +0800
+ * $Date: Wed Jun 12 16:17:26 2013 +0800
  * $Author: jiakai <jia.kai66@gmail.com>
  */
 
@@ -11,16 +11,16 @@ module main(
 	wire [7:0] point;
 	wire point_enable, clock_cycle_stable;
 	wire [7:0] frame_num;
-	reg clock_div;
+	reg clock_half = 0;
 
 	always @(posedge clock)
-		clock_div <= ~clock_div;
+		clock_half <= ~clock_half;
 
 	disp_matrix disp_matrix_comp(
 		.enable(point_enable), .addr(point), .row(row), .col(col));
 
 	frame_reader frame_reader_comp(
-		.frame_num(frame_num), .clock(clock_div), .point_coord(point),
+		.frame_num(frame_num), .clock(clock_half), .point_coord(point),
 		.point_enable(point_enable));
 
 	animation_renderer anim_comp(
