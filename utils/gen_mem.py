@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # $File: gen_mem.py
-# $Date: Wed Jun 12 09:34:10 2013 +0800
+# $Date: Fri Jun 14 22:22:24 2013 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 import sys
@@ -56,7 +56,7 @@ class Frame(object):
                 start = i
                 break
 
-        with open('../gen/frame_data.txt', 'w') as fout:
+        with open('../hdl/gen/frame_data.txt', 'w') as fout:
             for i in range(len(frames)):
                 f = frames[i]
                 print >>fout, i, f.addr, f.content
@@ -93,10 +93,10 @@ if __name__ == '__main__':
             frames.append(Frame(list(json.loads(l))))
 
     os.chdir(os.path.dirname(__file__))
-    with open('../gen/mem.mif', 'w') as f:
+    with open('../hdl/gen/mem.mif', 'w') as f:
         start = gen(frames, f)
     
-    with open('../src/frame_reader_fh.inc.v', 'w') as f:
+    with open('../hdl/src/frame_reader_fh.inc.v', 'w') as f:
         print >> f, "`define FRAME_HIGHERPART 8'd{}".format(start)
         print >> f, "`define FB_SIZE 8'd{}".format(len(frames))
         print >> f, "`define FB_SIZE_M1 8'd{}".format(len(frames) - 1)

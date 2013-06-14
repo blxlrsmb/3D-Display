@@ -1,0 +1,6 @@
+[ProjectGroup]
+Version=1.0
+[Project1]
+ProjectPath=design.PrjPcb
+[Project2]
+ProjectPath=mylib.LibPkg
